@@ -22,7 +22,7 @@ jobs:
           pip install -r requirements.txt
 
       - name: Train Model
-        run: python train.py
+        run: python data/train.py
 
       - name: Deploy Model to SageMaker
         env:
