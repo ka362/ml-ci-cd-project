@@ -19,7 +19,7 @@ jobs:
 
       - name: Install Python Packages
         run: |
-          pip install -r requirements.txt
+          pip install pandas scikit-learn joblib boto3 sagemaker
 
       - name: Train Model
         run: python data/train.py
