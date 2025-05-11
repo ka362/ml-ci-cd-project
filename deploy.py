@@ -8,7 +8,8 @@ bucket = "my-ml-model-bucket2"
 
 # Upload model to S3
 s3 = boto3.client("s3")
-s3.upload_file("model.joblib", bucket, "model.joblib")
+s3.upload_file("data/model.joblib", bucket, "model.joblib")
+
 
 # Create SKLearn model
 model = SKLearnModel(
