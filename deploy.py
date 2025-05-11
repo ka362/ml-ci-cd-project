@@ -1,4 +1,4 @@
-import boto3
+import boto3 
 from sagemaker.sklearn.model import SKLearnModel
 import sagemaker
 
@@ -18,23 +18,21 @@ model = SKLearnModel(
     framework_version="0.23-1"
 )
 
-# Deploy the model (optional, useful locally)
-predictor = model.deploy(instance_type="ml.t2.medium", initial_instance_count=1)
-print("✅ Model deployed using model.deploy()")
+# Register model (creates in SageMaker)
+model_name = model.create(instance_type="ml.t2.medium")
+print(f"✅ Model registered: {model_name}")
 
-# --- Now manually create endpoint (to show in SageMaker console) ---
-
+# Create endpoint config
 client = boto3.client("sagemaker")
 endpoint_config_name = "sklearn-endpoint-config"
 endpoint_name = "sklearn-endpoint"
 
-# Create endpoint config
 client.create_endpoint_config(
     EndpointConfigName=endpoint_config_name,
     ProductionVariants=[
         {
             "VariantName": "AllTraffic",
-            "ModelName": model.name,
+            "ModelName": model_name,
             "InstanceType": "ml.t2.medium",
             "InitialInstanceCount": 1,
         }
